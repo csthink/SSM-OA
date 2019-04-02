@@ -5,66 +5,66 @@
 
 // ****************************** 部门管理 ******************************** //
 // var dept_add_form = document.getElementById("department-add-form");
-if (null != dept_add_form) {
+// if (null != dept_add_form) {
     // 实例化验证器，添加验证规则
-    var deptVld = new Validator();
-    deptVld.add(dept_add_form.deptName, [{strategy: 'isNonEmpty', errorMsg: '部门名称不能为空'}]);
-    deptVld.add(dept_add_form.address, [{strategy: 'isNonEmpty', errorMsg: '部门地址不能为空'}]);
-    deptVld.add(dept_add_form.tel, [{strategy: 'isNonEmpty', errorMsg: '部门电话不能为空'}]);
-
-    var submitDeptAddForm;
+    // var deptVld = new Validator();
+    // deptVld.add(dept_add_form.deptName, [{strategy: 'isNonEmpty', errorMsg: '部门名称不能为空'}]);
+    // deptVld.add(dept_add_form.address, [{strategy: 'isNonEmpty', errorMsg: '部门地址不能为空'}]);
+    // deptVld.add(dept_add_form.tel, [{strategy: 'isNonEmpty', errorMsg: '部门电话不能为空'}]);
+    //
+    // var submitDeptAddForm;
 
     /**
      * 表单提交函数(被装饰者函数)
      */
-    submitDeptAddForm = function () {
-        var formData = new FormData(dept_add_form);
-
-        swal({
-            title: "确定保存信息",
-            text: "",
-            type: "info",
-            showCancelButton: true,
-            closeOnConfirm: false,
-            showLoaderOnConfirm: true,
-        }, function () {
-            $.ajax({
-                url: "/department/add",
-                type: "post",
-                data: formData,
-                dataType: "json",
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                    console.log(data);
-                    var flag = data.flag;
-                    var msg = data.msg;
-                    if (flag === true) { // 注册成功
-                        swal(msg);
-                        // Message.success(msg);
-                        setTimeout(function () {
-                            window.location.href = "/department/list";
-                        }, 2000);
-                    } else { // 注册失败
-                        swal(msg);
-                    }
-                },
-                error: function (e) {
-                    console.log(e);
-                    Message.error(e);
-                }
-            });
-
-        });
-    };
+    // submitDeptAddForm = function () {
+    //     var formData = new FormData(dept_add_form);
+    //
+    //     swal({
+    //         title: "确定保存信息",
+    //         text: "",
+    //         type: "info",
+    //         showCancelButton: true,
+    //         closeOnConfirm: false,
+    //         showLoaderOnConfirm: true,
+    //     }, function () {
+    //         $.ajax({
+    //             url: "/department/add",
+    //             type: "post",
+    //             data: formData,
+    //             dataType: "json",
+    //             processData: false,
+    //             contentType: false,
+    //             success: function (data) {
+    //                 console.log(data);
+    //                 var flag = data.flag;
+    //                 var msg = data.msg;
+    //                 if (flag === true) { // 注册成功
+    //                     swal(msg);
+    //                     // Message.success(msg);
+    //                     setTimeout(function () {
+    //                         window.location.href = "/department/list";
+    //                     }, 2000);
+    //                 } else { // 注册失败
+    //                     swal(msg);
+    //                 }
+    //             },
+    //             error: function (e) {
+    //                 console.log(e);
+    //                 Message.error(e);
+    //             }
+    //         });
+    //
+    //     });
+    // };
 
     // 添加装饰者,表单提交之前执行校验
-    submitDeptAddForm = submitDeptAddForm.before(deptVld.start.bind(deptVld));
+    // submitDeptAddForm = submitDeptAddForm.before(deptVld.start.bind(deptVld));
     // 表单提交按钮点击事件，触发表单提交，发异步请求
-    dept_add_form.submit.onclick = function () {
-        submitDeptAddForm();
-    };
-}
+    // dept_add_form.submit.onclick = function () {
+    //     submitDeptAddForm();
+    // };
+// }
 
 // ****************************** 员工管理 ******************************** //
 

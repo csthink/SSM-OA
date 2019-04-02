@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="address">地址</label>
-                                    <form:input  cssClass="form-control" path="address" value="${department.address}" placeholder="请输入部门地址"/>
+                                    <form:input cssClass="form-control" path="address" value="${department.address}" placeholder="请输入部门地址"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="tel">电话</label>

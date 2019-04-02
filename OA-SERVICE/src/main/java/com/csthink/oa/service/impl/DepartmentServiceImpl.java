@@ -29,6 +29,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public int edit(Department department) {
+        department.setUpdateTime(new Date());
         return departmentDao.update(department);
     }
 
