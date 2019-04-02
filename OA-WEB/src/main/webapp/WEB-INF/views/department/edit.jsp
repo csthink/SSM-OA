@@ -10,7 +10,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0);">部门管理</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">新增部门</li>
+                            <li class="breadcrumb-item active" aria-current="page">编辑部门</li>
                         </ol>
                     </nav>
                 </div>
@@ -25,7 +25,7 @@
                 <div class="col-md-6 offset-3">
                     <div class="card">
                         <div class="header">
-                            <h2>新增部门</h2>
+                            <h2>编辑部门</h2>
                         </div>
                         <div class="body">
                             <form:form  modelAttribute="department" action="department/edit" method="post" id="department-edit-form" novalidate="novalidate">

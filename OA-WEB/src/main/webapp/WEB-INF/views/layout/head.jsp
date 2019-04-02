@@ -1,10 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+    request.setAttribute("basePath", basePath);
+%>
+<c:set value="${requestScope['javax.servlet.forward.request_uri']}" var="requestUri"/>
+<c:set value="${requestScope['javax.servlet.forward.query_string']}" var="queryString"/>
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <title>CRM | ${TITLE}</title>
+    <title>CRM | ${title}</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -95,7 +101,7 @@
                             <li><a href=""><i class="icon-user"></i>我的信息</a></li>
                             <li><a href=""><i class="icon-settings"></i>设置</a></li>
                             <li class="divider"></li>
-                            <li><a href="/login/logout.do"><i class="icon-power"></i>退出系统</a></li>
+                            <li><a href="/login/logout"><i class="icon-power"></i>退出系统</a></li>
                         </ul>
                     </div>
                 </div> <!-- /user-account -->
@@ -103,39 +109,30 @@
                 <nav id="left-sidebar-nav" class="sidebar-nav">
                     <ul id="main-menu" class="metismenu">
                         <!-- <li class="header">Main</li> -->
-                        <li class="active"><a href="/login/logout.do"><i class="icon-logout"></i><span>退出系统</span></a></li>
+                        <li class="active"><a href="/login/logout"><i class="icon-logout"></i><span>退出系统</span></a></li>
 
                         <li class="header">系统管理</li>
 
                         <li class="<c:out value="${requestUri.contains('/employee/') ? 'active' : ''}"/>">
                             <a href="javascript:void(0);" class="has-arrow"><i class="icon-users"></i><span>员工管理</span></a>
                             <ul>
-                                <li class="<c:out value="${requestUri.contains('/employee/list.do') ? 'active' : ''}"/>"><a href="/employee/list.do">员工列表</a></li>
-                                <li class="<c:out value="${requestUri.contains('/employee/toAdd.do') ? 'active' : ''}"/>"><a href="/employee/toAdd.do">添加员工</a></li>
+                                <li class="<c:out value="${requestUri.contains('/employee/list') ? 'active' : ''}"/>"><a href="/employee/list">员工列表</a></li>
+                                <li class="<c:out value="${requestUri.contains('/employee/toAdd') ? 'active' : ''}"/>"><a href="/employee/toAdd">添加员工</a></li>
                              </ul>
                         </li>
                         <li class="<c:out value="${requestUri.contains('/department/') ? 'active' : ''}"/>">
                             <a href="javascript:void(0);" class="has-arrow"><i class="icon-users"></i><span>部门管理</span></a>
                             <ul>
-                                <li class="<c:out value="${requestUri.contains('/department/list.do') ? 'active' : ''}"/>"><a href="/department/list.do">部门列表</a></li>
-                                <li class="<c:out value="${requestUri.contains('/department/toAdd.do') ? 'active' : ''}"/>"><a href="/department/toAdd.do">添加部门</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="<c:out value="${requestUri.contains('/log/') ? 'active' : ''}"/>">
-                            <a href="javascript:void(0);" class="has-arrow"><i class="icon-doc"></i><span>日志信息</span></a>
-                            <ul>
-                                <li class="<c:out value="${requestUri.contains('/log/operationLog.do') ? 'active' : ''}"/>"><a href="/log/operationLog.do">操作日志</a></li>
-                                <li class="<c:out value="${requestUri.contains('/log/loginLog.do') ? 'active' : ''}"/>"><a href="/log/loginLog.do">登录日志</a></li>
-                                <li class="<c:out value="${requestUri.contains('/log/systemLog.do') ? 'active' : ''}"/>" ><a href="/log/systemLog.do">系统日志</a></li>
+                                <li class="<c:out value="${requestUri.contains('/department/list') ? 'active' : ''}"/>"><a href="/department/list">部门列表</a></li>
+                                <li class="<c:out value="${requestUri.contains('/department/toAdd') ? 'active' : ''}"/>"><a href="/department/toAdd">添加部门</a></li>
                             </ul>
                         </li>
 
                         <li>
                             <a href="javascript:void(0);" class="has-arrow"><i class="icon-home"></i><span>个人中心</span></a>
                             <ul>
-                                <li><a href="forms-basic.html">个人信息</a></li>
-                                <li><a href="/login/toForgotPassword.do">修改密码</a></li>
+                                <li><a href="">个人信息</a></li>
+                                <li><a href="/login/toForgotPassword">修改密码</a></li>
                             </ul>
                         </li>
 

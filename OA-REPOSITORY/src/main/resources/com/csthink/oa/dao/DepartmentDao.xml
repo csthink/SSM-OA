@@ -5,7 +5,7 @@
         <id property="id" column="id" javaType="Integer"/>
         <result property="deptName" column="dept_name" javaType="String"/>
         <result property="address" column="address" javaType="String"/>
-        <result property="tes" column="tes" javaType="String"/>
+        <result property="tel" column="tel" javaType="String"/>
         <result property="createTime" column="create_time" javaType="Date"/>
         <result property="updateTime" column="update_time" javaType="Date"/>
     </resultMap>
