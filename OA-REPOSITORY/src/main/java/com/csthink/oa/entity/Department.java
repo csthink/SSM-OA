@@ -63,4 +63,16 @@ public class Department {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    @Override
+    public String toString() {
+        return "Department{" +
+                "id=" + id +
+                ", deptName='" + deptName + '\'' +
+                ", address='" + address + '\'' +
+                ", tel='" + tel + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }

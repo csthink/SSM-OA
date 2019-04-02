@@ -6,6 +6,7 @@ import com.csthink.oa.service.DepartmentService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Service("departmentService")
@@ -16,6 +17,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public int add(Department department) {
+        department.setCreateTime(new Date());
+        department.setUpdateTime(new Date());
         return departmentDao.insert(department);
     }
 
