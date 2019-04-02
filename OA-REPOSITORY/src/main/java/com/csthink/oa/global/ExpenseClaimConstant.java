@@ -21,7 +21,7 @@ public class ExpenseClaimConstant {
      *
      * @return List
      */
-    public List<String> getPosts() {
+    public static List<String> getPosts() {
         List<String> list = new ArrayList<>();
         list.add(POST_STAFF);
         list.add(POST_FM);
@@ -44,7 +44,7 @@ public class ExpenseClaimConstant {
      *
      * @return List
      */
-    public List<String> getExpenseType() {
+    public static List<String> getExpenseType() {
         List<String> list = new ArrayList<>();
         list.add(EXPENSE_TYPE_TRAFFIC);
         list.add(EXPENSE_TYPE_FOOD);
