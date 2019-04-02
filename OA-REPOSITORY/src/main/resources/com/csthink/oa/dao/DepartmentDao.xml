@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csthink.oa.dao.DepartmentDao">
+    <resultMap id="departmentMap" type="Department">
+        <id property="id" column="id" javaType="Integer"/>
+        <result property="deptName" column="dept_name" javaType="String"/>
+    </resultMap>
+
+    <sql id="departmentFields">
+        `id`,`dept_name`,`address`,`tel`,`create_time`,`update_time`
+    </sql>
+
+    <insert id="insert" parameterType="Department" useGeneratedKeys="true">
+        INSERT INTO `department`(<include refid="departmentFields"></include>) VALUES(null, #{deptName}, #{address}, #{tel}, #{createTime}, #{updateTime})
+    </insert>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM `department` WHERE `id`=#{id}
+    </delete>
+
+    <update id="update" parameterType="Department">
+        UPDATE `department`
+        <set>
+            <if test="null != deptName">dept_name=#{deptName},</if>
+            <if test="null != address">address=#{address},</if>
+            <if test="null != tel">tel=#{tel},</if>
+            <if test="null != updateTime">update_time=#{updateTime}</if>
+        </set>
+        where `id`=#{id}
+    </update>
+
+    <select id="selectById" parameterType="Integer" resultMap="departmentMap">
+        SELECT <include refid="departmentFields"></include> FROM `department` WHERE `id`=#{id}
+    </select>
+
+    <select id="selectAll" resultMap="departmentMap">
+        SELECT <include refid="departmentFields"></include> FROM `department`
+    </select>
+
+</mapper>
