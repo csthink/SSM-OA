@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csthink.oa.dao.EmployeeDao">
+    <!-- 自定义映射关系集合：主要包含对于一些自定义操作的配置，如不一致的属性和字段 -->
+    <resultMap id="employeeMap" type="Employee" autoMapping="true">
+        <!-- 绑定id主键 -->
+        <id property="id" column="id" javaType="Integer"/>
+        <!-- result配置，主要配置普通属性，column表示配置的是数据库字段名称 property配置的是实体类的属性名称 -->
+        <result property="username" column="username" javaType="String"/>
+        <result property="password" column="password" javaType="String"/>
+        <result property="realName" column="real_name" javaType="String"/>
+        <result property="deptId" column="dept_id" javaType="Integer"/>
+        <result property="post" column="post" javaType="String"/>
+        <result property="createTime" column="create_time" javaType="Date"/>
+        <result property="updateTime" column="update_time" javaType="Date"/>
+        <association property="department" column="dept_id">
+            <id property="id" column="d_id" javaType="Integer"/>
+            <result property="deptName" column="d_dept_name" javaType="String"/>
+        </association>
+    </resultMap>
+
+    <sql id="employeeFields">
+       `id`, `username`,`password`,`real_name`,`dept_id`,`post`,`create_time`,`update_time`
+    </sql>
+
+    <sql id="employeeDepartmentFields">
+        e.`id`,
+        e.`username`,
+        e.`password`,
+        e.`real_name`,
+        e.`dept_id`,
+        e.`post`,
+        e.`create_time`,
+        e.`update_time`,
+        d.`id` AS d_id,
+        d.`dept_name` AS d_dept_name
+    </sql>
+
+    <select id="selectById" parameterType="Integer" resultMap="employeeMap">
+        SELECT
+        <include refid="employeeDepartmentFields"></include>
+        FROM `employee` AS e  LEFT JOIN  `department` AS d
+        ON e.`dept_id` = d.`id`
+        WHERE e.`id` = #{id}
+    </select>
+
+    <select id="selectAll" parameterType="Integer" resultMap="employeeMap">
+        SELECT
+        <include refid="employeeDepartmentFields"></include>
+        FROM `employee` AS e LEFT JOIN  `department` AS d
+        ON e.`dept_id` = d.`id`
+        ORDER BY e.`create_time` DESC
+    </select>
+
+    <insert id="insert" parameterType="Employee" useGeneratedKeys="true">
+        INSERT INTO `employee`(<include refid="employeeFields"></include>)
+        VALUES(null, #{username},#{password},#{realName},#{deptId},#{post},#{createTime},#{updateTime})
+    </insert>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM `employee` WHERE `id` = #{id}
+    </delete>
+
+    <update id="update" parameterType="Employee">
+        UPDATE `employee`
+        <set>
+            <if test="null != username">username=#{username},</if>
+            <if test="null != password">password=#{password},</if>
+            <if test="null != realName">real_name=#{realName},</if>
+            <if test="null != deptId">dept_id=#{deptId},</if>
+            <if test="null != post">post=#{post},</if>
+            <if test="null != updateTime">update_time=#{updateTime}</if>
+        </set>
+        where `id` = #{id}
+    </update>
+</mapper>
