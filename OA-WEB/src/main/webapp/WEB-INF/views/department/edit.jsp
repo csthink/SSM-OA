@@ -29,7 +29,7 @@
                         </div>
                         <div class="body">
                             <form:form  modelAttribute="department" action="department/edit" method="post" id="department-edit-form" novalidate="novalidate">
-                                <form:input type="hidden" path="id" value="${department.id}"/>
+                                <form:hidden path="id" value="${department.id}"/>
                                 <div class="form-group">
                                     <label for="deptName">部门名</label>
                                     <form:input cssClass="form-control" path="deptName" value="${department.deptName}" placeholder="请输入部门名称"/>

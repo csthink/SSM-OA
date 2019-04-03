@@ -32,7 +32,7 @@
                     </div>
                     <div class="body">
                         <form:form modelAttribute="employee" action="/employee/edit" method="post" class="needs-validation" novalidate="novalidate">
-                            <form:input type="hidden" value="${employee.id}" path="id"/>
+                            <form:hidden path="id" value="${employee.id}"/>
                             <div class="form-group">
                                 <label for="username">用户名</label>
                                 <form:input path="username" cssClass="form-control" value="" placeholder="请输入用户名" required="required" autofocus="autofocus" maxlength="20"/>
