@@ -25,5 +25,13 @@
         <!-- 视图文件名后缀 -->
         <property name="suffix" value=".jsp"/>
     </bean>
+    <!-- 拦截器配置 -->
+    <mvc:interceptors>
+        <!-- 登录拦截器 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.csthink.oa.global.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 </beans>

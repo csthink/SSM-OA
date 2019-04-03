@@ -10,7 +10,7 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <title>CRM | ${title}</title>
+    <title>OA | ${title}</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -30,17 +30,11 @@
     <link rel="stylesheet" href="/css/site.min.css">
 </head>
 <body class="theme-orange">
-        <%
-//            if (null != session.getAttribute("USER")) {
-//                Employee employee = (Employee) session.getAttribute("USER");
-//                request.setAttribute("employee", employee);
-//            }
-        %>
     <!-- Page Loader -->
     <div class="page-loader-wrapper">
         <div class="loader">
             <div class="m-t-30">
-                <img src="/image/icon.svg" width="40" height="40" alt="CRM">
+                <img src="/image/icon.svg" width="40" height="40" alt="OA">
             </div>
             <p>系统加载中...</p>
         </div>
@@ -55,7 +49,7 @@
             <div class="container-fluid">
                 <div class="navbar-left">
                     <div class="navbar-btn">
-                        <a href="index.html"> <img src="/image/icon.svg" alt="CRM Logo" class="img-fluid logo"></a>
+                        <a href="#"> <img src="/image/user.png" alt="OA Logo" class="img-fluid logo"></a>
                         <button type="button" class="btn-toggle-offcanvas"><i class="lnr lnr-menu fa fa-bars"></i></button>
                     </div> <!-- /navbar-left -->
                 </div> <!-- /navbar-left -->
@@ -63,7 +57,7 @@
                 <div class="navbar-right">
                     <div id="navbar-menu">
                         <ul class="nav navbar-nav">
-                            <li><a href="/login/logout.do" class="icon-menu"><i class="icon-power"></i></a></li>
+                            <li><a href="/user/logout" class="icon-menu"><i class="icon-power"></i></a></li>
                         </ul>
                     </div> <!-- /navbar-menu -->
                 </div> <!-- /navbar-right -->
@@ -81,7 +75,7 @@
         <div id="left-sidebar" class="sidebar">
 
             <div class="navbar-brand">
-                <a href="index.html"><img src="/image/icon.svg" alt="CRM Logo" class="img-fluid logo"><span>CRM</span></a>
+                <a href="index.html"><img src="/image/icon.svg" alt="OA Logo" class="img-fluid logo"><span>CRM</span></a>
                 <button type="button" class="btn-toggle-offcanvas btn btn-sm float-right"> <i class="lnr lnr-menu fa fa-chevron-circle-left"></i> </button>
             </div>
 
@@ -95,13 +89,12 @@
 
                     <div class="dropdown">
                         <span>欢迎,</span>
-<%--                        <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>${employee.username}</strong></a>--%>
-                        <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>Peter</strong></a>
+                        <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>${sessionScope.employee.realName}</strong></a>
                         <ul class="dropdown-menu dropdown-menu-right account vivify flipInY">
-                            <li><a href=""><i class="icon-user"></i>我的信息</a></li>
+                            <li><a href="/user/profile"><i class="icon-user"></i>我的信息</a></li>
                             <li><a href=""><i class="icon-settings"></i>设置</a></li>
                             <li class="divider"></li>
-                            <li><a href="/login/logout"><i class="icon-power"></i>退出系统</a></li>
+                            <li><a href="/user/logout"><i class="icon-power"></i>退出系统</a></li>
                         </ul>
                     </div>
                 </div> <!-- /user-account -->
@@ -109,7 +102,7 @@
                 <nav id="left-sidebar-nav" class="sidebar-nav">
                     <ul id="main-menu" class="metismenu">
                         <!-- <li class="header">Main</li> -->
-                        <li class="active"><a href="/login/logout"><i class="icon-logout"></i><span>退出系统</span></a></li>
+                        <li class="active"><a href="/user/logout"><i class="icon-logout"></i><span>退出系统</span></a></li>
 
                         <li class="header">系统管理</li>
 
@@ -128,11 +121,11 @@
                             </ul>
                         </li>
 
-                        <li>
+                        <li class="<c:out value="${requestUri.contains('/user/') ? 'active' : ''}"/>">
                             <a href="javascript:void(0);" class="has-arrow"><i class="icon-home"></i><span>个人中心</span></a>
                             <ul>
-                                <li><a href="">个人信息</a></li>
-                                <li><a href="/login/toForgotPassword">修改密码</a></li>
+                                <li class="<c:out value="${requestUri.contains('/user/profile') ? 'active' : ''}"/>"><a href="/user/profile">个人信息</a></li>
+                                <li class="<c:out value="${requestUri.contains('/user/toChangePassword') ? 'active' : ''}"/>"><a href="/user/toChangePassword">修改密码</a></li>
                             </ul>
                         </li>
 
