@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csthink.oa.dao.ExpenseClaimDao">
+    <!-- 自定义映射关系集合：主要包含对于一些自定义操作的配置，如不一致的属性和字段 -->
+    <resultMap id="ExpenseClaimMap" type="ExpenseClaim" autoMapping="true">
+        <!-- 绑定id主键 -->
+        <id property="id" column="id" javaType="Integer"/>
+        <!-- result配置，主要配置普通属性，column表示配置的是数据库字段名称 property配置的是实体类的属性名称 -->
+        <result property="cause" column="cause" javaType="String"/>
+        <result property="creator" column="creator" javaType="Integer"/>
+        <result property="nextDealEmp" column="next_deal_emp" javaType="Integer"/>
+        <result property="totalAmount" column="total_amount" javaType="java.math.BigDecimal"/>
+        <result property="status" column="status" javaType="String"/>
+        <result property="createTime" column="create_time" javaType="java.util.Date"/>
+        <result property="updateTime" column="update_time" javaType="java.util.Date"/>
+        <association property="creatorEmployee" column="creator" javaType="Employee">
+            <id property="id" column="c_id" javaType="Integer"/>
+            <result property="realName" column="c_real_name" javaType="String"/>
+            <result property="post" column="c_post" javaType="String"/>
+        </association>
+        <association property="dealEmployee" column="next_deal_emp" javaType="Employee">
+            <id property="id" column="d_id" javaType="Integer"/>
+            <result property="realName" column="d_real_name" javaType="String"/>
+            <result property="post" column="d_post" javaType="String"/>
+        </association>
+    </resultMap>
+
+    <sql id="ExpenseClaimFields">
+       `id`, `cause`,`creator`,`next_deal_emp`,`total_amount`,`status`,`create_time`,`update_time`
+    </sql>
+
+    <sql id="ExpenseClaimEmployeeFields">
+        ec.`id`,
+        ec.`cause`,
+        ec.`creator`,
+        ec.`next_deal_emp`,
+        ec.`total_amount`,
+        ec.`status`,
+        ec.`create_time`,
+        ec.`update_time`,
+        c.`id` AS c_id,
+        c.`real_name` AS c_real_name,
+        c.`post` AS c_post,
+        d.`id` AS d_id,
+        d.`real_name` AS d_real_name,
+        d.`post` AS d_post,
+    </sql>
+
+    <select id="selectById" parameterType="Integer" resultMap="ExpenseClaimMap">
+        SELECT
+        <include refid="ExpenseClaimEmployeeFields"></include>
+        FROM `expense_claim` AS ec
+        LEFT JOIN  `employee` AS c ON ec.`creator` = c.`id`
+        LEFT JOIN  `employee` AS d ON ec.`next_deal_emp` = d.`id`
+        WHERE ec.`id` = #{id}
+    </select>
+
+    <select id="selectByCreator" parameterType="Integer" resultMap="ExpenseClaimMap">
+        SELECT
+        <include refid="ExpenseClaimEmployeeFields"></include>
+        FROM `expense_claim` AS ec
+        LEFT JOIN  `employee` AS c ON ec.`creator` = c.`id`
+        LEFT JOIN  `employee` AS d ON ec.`next_deal_emp` = d.`id`
+        WHERE ec.`creator` = #{cid}
+        ORDER BY ec.`create_time` DESC
+    </select>
+
+    <select id="selectByDealer" parameterType="Integer" resultMap="ExpenseClaimMap">
+        SELECT
+        <include refid="ExpenseClaimEmployeeFields"></include>
+        FROM `expense_claim` AS ec
+        LEFT JOIN  `employee` AS c ON ec.`creator` = c.`id`
+        LEFT JOIN  `employee` AS d ON ec.`next_deal_emp` = d.`id`
+        WHERE ec.`creator` = #{did}
+        ORDER BY ec.`create_time` DESC
+    </select>
+
+    <insert id="insert" parameterType="ExpenseClaim" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO `expense_claim`(<include refid="ExpenseClaimFields"></include>)
+        VALUES(null, #{cause},#{creator},#{nextDealEmp},#{totalAmount},#{status},#{createTime},#{updateTime})
+    </insert>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM `expense_claim` WHERE `id` = #{id}
+    </delete>
+
+    <update id="update" parameterType="ExpenseClaim">
+        UPDATE `employee`
+        <set>
+            <if test="null != cause">cause=#{cause},</if>
+            <if test="null != creator">creator=#{creator},</if>
+            <if test="null != nextDealEmp">next_deal_emp=#{nextDealEmp},</if>
+            <if test="null != totalAmount">total_amount=#{totalAmount},</if>
+            <if test="null != status">status=#{status},</if>
+            <if test="null != updateTime">update_time=#{updateTime}</if>
+        </set>
+        where `id` = #{id}
+    </update>
+</mapper>

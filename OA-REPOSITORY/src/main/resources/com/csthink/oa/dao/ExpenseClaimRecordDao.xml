@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csthink.oa.dao.ExpenseClaimRecordDao">
+    <!-- 自定义映射关系集合：主要包含对于一些自定义操作的配置，如不一致的属性和字段 -->
+    <resultMap id="ExpenseClaimRecordMap" type="ExpenseClaimRecord" autoMapping="true">
+        <!-- 绑定id主键 -->
+        <id property="id" column="id" javaType="Integer"/>
+        <!-- result配置，主要配置普通属性，column表示配置的是数据库字段名称 property配置的是实体类的属性名称 -->
+        <result property="expenseClaimId" column="expense_claim_id" javaType="Integer"/>
+        <result property="dealEmp" column="deal_emp" javaType="Integer"/>
+        <result property="dealType" column="deal_type" javaType="String"/>
+        <result property="dealResult" column="deal_result" javaType="String"/>
+        <result property="remark" column="remark" javaType="String"/>
+        <result property="dealTime" column="deal_time" javaType="java.util.Date"/>
+        <association property="dealEmployee" column="deal_emp" javaType="Employee">
+            <id property="id" column="c_id" javaType="Integer"/>
+            <result property="realName" column="c_real_name" javaType="String"/>
+            <result property="post" column="c_post" javaType="String"/>
+        </association>
+    </resultMap>
+
+    <sql id="ExpenseClaimItemFields">
+       `id`, `expense_claim_id`,`deal_emp`,`deal_type`,`deal_result`,`remark`,`deal_time`
+    </sql>
+
+    <sql id="ExpenseClaimRecordEmployeeFields">
+        ec.`id`,
+        ec.`expense_claim_id`,
+        ec.`deal_emp`,
+        ec.`deal_type`,
+        ec.`deal_result`,
+        ec.`remark`,
+        ec.`deal_time`,
+        c.`id` AS c_id,
+        c.`real_name` AS c_real_name,
+        c.`post` AS c_post,
+    </sql>
+
+    <select id="selectByExpenseClaimId" parameterType="Integer" resultMap="ExpenseClaimRecordMap">
+        SELECT
+        <include refid="ExpenseClaimRecordEmployeeFields"></include>
+        FROM `expense_claim_record` AS ec
+        LEFT JOIN `employee` AS c ON ec.deal_emp = c.id
+        WHERE ec.`expense_claim_id` = #{cid}
+        ORDER BY ec.`id` DESC
+    </select>
+
+    <insert id="insert" parameterType="ExpenseClaimRecord" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO `expense_claim_record`(<include refid="ExpenseClaimItemFields"></include>)
+        VALUES(null, #{expenseClaimId},#{dealEmp},#{dealType},#{dealResult},#{remark},#{dealTime})
+    </insert>
+
+</mapper>

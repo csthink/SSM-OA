@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csthink.oa.dao.ExpenseClaimItemDao">
+    <!-- 自定义映射关系集合：主要包含对于一些自定义操作的配置，如不一致的属性和字段 -->
+    <resultMap id="ExpenseClaimItemMap" type="ExpenseClaimItem" autoMapping="true">
+        <!-- 绑定id主键 -->
+        <id property="id" column="id" javaType="Integer"/>
+        <!-- result配置，主要配置普通属性，column表示配置的是数据库字段名称 property配置的是实体类的属性名称 -->
+        <result property="expenseClaimId" column="expense_claim_id" javaType="Integer"/>
+        <result property="expenseType" column="expense_type" javaType="String"/>
+        <result property="amount" column="amount" javaType="java.math.BigDecimal"/>
+        <result property="remark" column="remark" javaType="String"/>
+    </resultMap>
+
+    <sql id="ExpenseClaimItemFields">
+       `id`, `expense_claim_id`,`expense_type`,`amount`,`remark`
+    </sql>
+
+    <select id="selectByExpenseClaimId" parameterType="Integer" resultMap="ExpenseClaimItemMap">
+        SELECT
+        <include refid="ExpenseClaimItemFields"></include>
+        FROM `expense_claim_item`
+        WHERE `expense_claim_id` = #{cid}
+        ORDER BY `id` DESC
+    </select>
+
+    <insert id="insert" parameterType="ExpenseClaimItem" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO `expense_claim_item`(<include refid="ExpenseClaimItemFields"></include>)
+        VALUES(null, #{expenseClaimId},#{expenseType},#{amount},#{remark})
+    </insert>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM `expense_claim_item` WHERE `id` = #{id}
+    </delete>
+
+    <update id="update" parameterType="ExpenseClaimItem">
+        UPDATE `expense_claim_item`
+        <set>
+            <if test="null != expenseClaimId">expense_claim_id=#{expenseClaimId},</if>
+            <if test="null != expenseType">expense_type=#{expenseType},</if>
+            <if test="null != amount">amount=#{amount},</if>
+            <if test="null != remark">remark=#{remark}</if>
+        </set>
+        where `id` = #{id}
+    </update>
+</mapper>
