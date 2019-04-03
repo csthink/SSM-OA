@@ -8,17 +8,32 @@ import java.util.List;
 @Repository("expenseClaimItemDao")
 public interface ExpenseClaimItemDao {
 
-    int insert(ExpenseClaimItem expenseClaimItem);
+    /**
+     * 保存报销单条目信息
+     *
+     * @param expenseClaimItem 报销单条目对象
+     */
+    void insert(ExpenseClaimItem expenseClaimItem);
 
-    int update(ExpenseClaimItem expenseClaimItem);
+    /**
+     * 更新报销单条目信息
+     *
+     * @param expenseClaimItem 报销单条目对象
+     */
+    void update(ExpenseClaimItem expenseClaimItem);
 
-    int delete(Integer id);
+    /**
+     * 根据报销单条目编号删除条目
+     *
+     * @param id 报销单条目编号
+     */
+    void delete(Integer id);
 
     /**
      * 查询指定报销单编号的所有条目
      *
-     * @param cid
-     * @return
+     * @param cid 报销单编号
+     * @return 报销单条目集合
      */
     List<ExpenseClaimItem> selectByExpenseClaimId(Integer cid);
 }

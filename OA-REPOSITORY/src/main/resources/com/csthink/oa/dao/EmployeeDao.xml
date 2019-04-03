@@ -52,6 +52,21 @@
         ORDER BY e.`create_time` DESC
     </select>
 
+    <select id="selectByDeptIdAndPost" resultMap="employeeMap">
+        SELECT
+        <include refid="employeeDepartmentFields"></include>
+        FROM `employee` AS e LEFT JOIN  `department` AS d
+        ON e.`dept_id` = d.`id`
+
+        where e.`id` is not NULL
+        <if test="deptId != null">
+            and e.`dept_id`=#{deptId}
+        </if>
+        <if test="post != null">
+            and e.`post`=#{post}
+        </if>
+    </select>
+
     <insert id="insert" parameterType="Employee" useGeneratedKeys="true">
         INSERT INTO `employee`(<include refid="employeeFields"></include>)
         VALUES(null, #{username},#{password},#{realName},#{deptId},#{post},#{createTime},#{updateTime})

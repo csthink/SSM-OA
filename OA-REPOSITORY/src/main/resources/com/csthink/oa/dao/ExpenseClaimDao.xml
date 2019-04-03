@@ -61,7 +61,7 @@
         FROM `expense_claim` AS ec
         LEFT JOIN  `employee` AS c ON ec.`creator` = c.`id`
         LEFT JOIN  `employee` AS d ON ec.`next_deal_emp` = d.`id`
-        WHERE ec.`creator` = #{cid}
+        WHERE ec.`creator` = #{eid}
         ORDER BY ec.`create_time` DESC
     </select>
 
@@ -71,7 +71,7 @@
         FROM `expense_claim` AS ec
         LEFT JOIN  `employee` AS c ON ec.`creator` = c.`id`
         LEFT JOIN  `employee` AS d ON ec.`next_deal_emp` = d.`id`
-        WHERE ec.`creator` = #{did}
+        WHERE ec.`next_deal_emp` = #{eid}
         ORDER BY ec.`create_time` DESC
     </select>
 
