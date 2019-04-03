@@ -75,7 +75,7 @@
         <div id="left-sidebar" class="sidebar">
 
             <div class="navbar-brand">
-                <a href="index.html"><img src="/image/icon.svg" alt="OA Logo" class="img-fluid logo"><span>CRM</span></a>
+                <a href="index.html"><img src="/image/icon.svg" alt="OA Logo" class="img-fluid logo"><span>OA</span></a>
                 <button type="button" class="btn-toggle-offcanvas btn btn-sm float-right"> <i class="lnr lnr-menu fa fa-chevron-circle-left"></i> </button>
             </div>
 

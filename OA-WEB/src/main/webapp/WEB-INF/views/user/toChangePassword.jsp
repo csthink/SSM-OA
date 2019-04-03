@@ -6,7 +6,7 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <title>重置密码</title>
+    <title>修改密码</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
