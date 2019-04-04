@@ -43,7 +43,7 @@
         c.`post` AS c_post,
         d.`id` AS d_id,
         d.`real_name` AS d_real_name,
-        d.`post` AS d_post,
+        d.`post` AS d_post
     </sql>
 
     <select id="selectById" parameterType="Integer" resultMap="ExpenseClaimMap">

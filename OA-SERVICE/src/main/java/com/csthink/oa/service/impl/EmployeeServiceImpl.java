@@ -18,7 +18,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeDao employeeDao;
 
     @Override
-    public int add(Employee employee) {
+    public void add(Employee employee) {
         employee.setCreateTime(new Date());
         employee.setUpdateTime(new Date());
         try {
@@ -27,18 +27,19 @@ public class EmployeeServiceImpl implements EmployeeService {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        return employeeDao.insert(employee);
+
+        employeeDao.insert(employee);
     }
 
     @Override
-    public int remove(Integer id) {
-        return employeeDao.delete(id);
+    public void remove(Integer id) {
+        employeeDao.delete(id);
     }
 
     @Override
-    public int edit(Employee employee) {
+    public void edit(Employee employee) {
         employee.setUpdateTime(new Date());
-        return employeeDao.update(employee);
+        employeeDao.update(employee);
     }
 
     @Override

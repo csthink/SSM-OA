@@ -129,6 +129,13 @@
                             </ul>
                         </li>
 
+                        <li class="<c:out value="${requestUri.contains('/expense_claim/') ? 'active' : ''}"/>">
+                            <a href="javascript:void(0);" class="has-arrow"><i class="icon-home"></i><span>报销单管理</span></a>
+                            <ul>
+                                <li class="<c:out value="${requestUri.contains('/expense_claim/toAdd') ? 'active' : ''}"/>"><a href="/expense_claim/toAdd">创建报销单</a></li>
+                            </ul>
+                        </li>
+
                     </ul> <!-- /main-menu -->
                 </nav><!-- /left-sidebar-nav -->
             </div> <!-- /sidebar-scroll -->

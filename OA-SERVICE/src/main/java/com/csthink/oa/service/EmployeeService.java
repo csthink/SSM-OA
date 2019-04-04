@@ -10,25 +10,22 @@ public interface EmployeeService {
      * 添加员工
      *
      * @param employee 员工对象
-     * @return
      */
-    int add(Employee employee);
+    void add(Employee employee);
 
     /**
      * 删除员工
      *
      * @param id 员工编号
-     * @return
      */
-    int remove(Integer id);
+    void remove(Integer id);
 
     /**
      * 修改员工
      *
      * @param employee 员工对象
-     * @return
      */
-    int edit(Employee employee);
+    void edit(Employee employee);
 
     /**
      * 获取指定的员工信息

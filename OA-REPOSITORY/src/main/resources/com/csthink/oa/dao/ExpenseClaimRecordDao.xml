@@ -33,7 +33,7 @@
         ec.`deal_time`,
         c.`id` AS c_id,
         c.`real_name` AS c_real_name,
-        c.`post` AS c_post,
+        c.`post` AS c_post
     </sql>
 
     <select id="selectByExpenseClaimId" parameterType="Integer" resultMap="ExpenseClaimRecordMap">

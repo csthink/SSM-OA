@@ -560,3 +560,53 @@ var getParams = function (data) {
 
     return arr.join('&');
 };
+
+var buildItemIndex =function (){
+    $.each($("#expense_claim_add .item"), function(i, val){
+        let $this = $("#expense_claim_add .item");
+        $this.eq(i).children().eq(0).find(".expenseType").attr("name", "items["+i+"].expenseType").attr("id", "items["+i+"].expenseType").prev().attr("for", "items["+i+"].expenseType");
+        $this.eq(i).children().eq(1).find(".amount").attr("name", "items["+i+"].amount").attr("id", "items["+i+"].amount").prev().attr("for", "items["+i+"].amount");
+        $this.eq(i).children().eq(2).find(".remark").attr("name", "items["+i+"].remark").attr("id", "items["+i+"].remark").prev().attr("for", "items["+i+"].remark");
+    });
+};
+
+var calculateAmount = function (){
+    let totalAmount = 0;
+    $.each($("#expense_claim_add .amount"), function(i, val){
+        let $this = $("#expense_claim_add .amount").eq(i);
+        if ($this.val() !== "") {
+            totalAmount += parseFloat($this.val());
+        }
+    });
+    $("#expense_claim_add .totalAmount").attr("value", totalAmount);
+};
+
+$(function () {
+    $("#expense_claim_add #addItemBtn").click(function () {
+        let $items = $("#expense_claim_add #items");
+        let $item = $items.children(".item");
+
+        $item.last().after($item.first().clone());
+        // jQuery克隆之后副本不能继承事件,克隆完了再绑定事件
+        $item.find(".deleteItemBtn").click(function () {
+            $(this).parents(".item").remove();
+            if ($item.length === 1) {
+                $item.find(".deleteItemBtn").attr("disabled", true);
+            }
+            buildItemIndex();
+            calculateAmount();
+        });
+        $("#expense_claim_add .amount").change(function () {
+            calculateAmount();
+        });
+
+        $item.find(".deleteItemBtn").attr("disabled", false);
+        buildItemIndex();
+        calculateAmount();
+    });
+
+    $("#expense_claim_add .amount").change(function () {
+        calculateAmount();
+    });
+});
+

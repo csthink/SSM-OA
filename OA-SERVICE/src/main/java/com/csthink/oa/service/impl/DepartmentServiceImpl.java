@@ -16,21 +16,21 @@ public class DepartmentServiceImpl implements DepartmentService {
     private DepartmentDao departmentDao;
 
     @Override
-    public int add(Department department) {
+    public void add(Department department) {
         department.setCreateTime(new Date());
         department.setUpdateTime(new Date());
-        return departmentDao.insert(department);
+        departmentDao.insert(department);
     }
 
     @Override
-    public int remove(Integer id) {
-        return departmentDao.delete(id);
+    public void remove(Integer id) {
+        departmentDao.delete(id);
     }
 
     @Override
-    public int edit(Department department) {
+    public void edit(Department department) {
         department.setUpdateTime(new Date());
-        return departmentDao.update(department);
+        departmentDao.update(department);
     }
 
     @Override

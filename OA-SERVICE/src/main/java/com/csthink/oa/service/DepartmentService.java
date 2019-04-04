@@ -10,9 +10,8 @@ public interface DepartmentService {
      * 添加部门
      *
      * @param department 部门对象
-     * @return
      */
-    int add(Department department);
+    void add(Department department);
 
     /**
      * 删除部门
@@ -20,7 +19,7 @@ public interface DepartmentService {
      * @param id 部门编号
      * @return
      */
-    int remove(Integer id);
+    void remove(Integer id);
 
     /**
      * 修改部门
@@ -28,7 +27,7 @@ public interface DepartmentService {
      * @param department 部门对象
      * @return
      */
-    int edit(Department department);
+    void edit(Department department);
 
     /**
      * 获取指定的部门信息
