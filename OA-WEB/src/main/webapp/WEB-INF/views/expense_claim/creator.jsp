@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <jsp:include page="/WEB-INF/views/layout/head.jsp" flush="true"/>
 
 <div id="main-content">
@@ -11,13 +11,13 @@
                 <!-- <h1>个人信息</h1> -->
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">员工管理</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">员工列表</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">报销单管理</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">个人报销单</li>
                     </ol>
                 </nav>
             </div>
             <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                <a href="/employee/toAdd" class="btn btn-sm btn-primary btn-round" title="">新增员工</a>
+                <a href="/expense_claim/toAdd" class="btn btn-sm btn-primary btn-round" title="">新增报销单</a>
             </div>
         </div>
     </div> <!-- /block-header -->
@@ -29,28 +29,23 @@
                     <table class="table table-hover table-custom spacing5">
                         <thead>
                         <tr>
-                            <th>员工编号</th>
-                            <th>用户名</th>
-                            <th>姓名</th>
-                            <th>所在部门</th>
-                            <th>职务</th>
-                            <th>添加时间</th>
+                            <th>事由</th>
+                            <th>状态</th>
+                            <th>创建人</th>
+                            <th>金额</th>
+                            <th>创建时间</th>
                             <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${list}" var="emp">
+                        <c:forEach items="${list}" var="ec">
                             <tr>
-                                <td><span>${emp.id}</span></td>
-                                <td><span>${emp.username}</span></td>
-                                <td><span>${emp.realName}</span></td>
-                                <td><span>${emp.department.deptName}</span></td>
-                                <td><span>${emp.post}</span></td>
-                                <td><span><fmt:formatDate value="${emp.createTime}" pattern="yyyy-MM-dd"></fmt:formatDate></span></td>
-                                <td>
-                                    <a href="/employee/toEdit?id=${emp.id}" class="btn btn-primary">编辑</a>
-                                    <a href="/employee/remove?id=${emp.id}" class="btn btn-danger">删除</a>
-                                </td>
+                                <td><span>${ec.cause}</span></td>
+                                <td><span>${ec.status}</span></td>
+                                <td><span>${ec.creatorEmployee.realName}</span></td>
+                                <td><span>${ec.totalAmount}</span></td>
+                                <td><span><spring:eval expression="ec.createTime"/></span></td>
+                                <td><a href="/expense_claim/detail?id=${ec.id}" class="btn btn-primary">详情</a></td>
                             </tr>
                         </c:forEach>
                         </tbody>

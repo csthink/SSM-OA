@@ -18,6 +18,11 @@ public class ExpenseClaimController {
     @Resource(name = "expenseClaimService")
     private ExpenseClaimService expenseClaimService;
 
+    /**
+     * 填写报销单
+     * @param map
+     * @return
+     */
     @RequestMapping("/toAdd")
     public String toAdd(Map<String, Object> map) {
         map.put("items", ExpenseClaimConstant.getExpenseType());
@@ -26,6 +31,12 @@ public class ExpenseClaimController {
         return "expense_claim/toAdd";
     }
 
+    /**
+     * 处理报销单保存
+     * @param session
+     * @param info dto
+     * @return
+     */
     @RequestMapping("/add")
     public String add(HttpSession session, ExpenseClaimInfo info) {
         Employee employee = (Employee) session.getAttribute("employee");
@@ -34,6 +45,12 @@ public class ExpenseClaimController {
         return "redirect:detail?id=" + info.getExpenseClaim().getId();
     }
 
+    /**
+     * 报销单详情
+     * @param id 报销单编号
+     * @param map
+     * @return
+     */
     @RequestMapping("/detail")
     public String detail(Integer id, Map<String, Object> map) {
         map.put("expenseClaim", expenseClaimService.getExpenseClaim(id));
@@ -42,4 +59,32 @@ public class ExpenseClaimController {
 
         return "expense_claim/detail";
     }
+
+    /**
+     * 获取个人报销单
+     * @param session
+     * @param map
+     * @return
+     */
+    @RequestMapping("/creator")
+    public String creator(HttpSession session, Map<String, Object> map) {
+        Employee employee = (Employee) session.getAttribute("employee");
+        map.put("list", expenseClaimService.getExpenseClaimForCreator(employee.getId()));
+        return "expense_claim/creator";
+    }
+
+    /**
+     * 获取待处理报销单
+     * @param session
+     * @param map
+     * @return
+     */
+    @RequestMapping("/dealer")
+    public String dealer(HttpSession session, Map<String, Object> map) {
+        Employee employee = (Employee) session.getAttribute("employee");
+        map.put("list", expenseClaimService.getExpenseClaimForDealer(employee.getId()));
+        return "expense_claim/dealer";
+    }
+
+
 }

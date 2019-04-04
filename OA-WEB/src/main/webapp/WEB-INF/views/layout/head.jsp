@@ -104,6 +104,16 @@
                         <!-- <li class="header">Main</li> -->
                         <li class="active"><a href="/user/logout"><i class="icon-logout"></i><span>退出系统</span></a></li>
 
+                        <li class="header">日常业务</li>
+                        <li class="<c:out value="${requestUri.contains('/expense_claim/') ? 'active' : ''}"/>">
+                            <a href="javascript:void(0);" class="has-arrow"><i class="icon-home"></i><span>报销单管理</span></a>
+                            <ul>
+                                <li class="<c:out value="${requestUri.contains('/expense_claim/toAdd') ? 'active' : ''}"/>"><a href="/expense_claim/toAdd">创建报销单</a></li>
+                                <li class="<c:out value="${requestUri.contains('/expense_claim/creator') ? 'active' : ''}"/>"><a href="/expense_claim/creator">个人报销单</a></li>
+                                <li class="<c:out value="${requestUri.contains('/expense_claim/dealer') ? 'active' : ''}"/>"><a href="/expense_claim/dealer">待处理报销单</a></li>
+                            </ul>
+                        </li>
+
                         <li class="header">系统管理</li>
 
                         <li class="<c:out value="${requestUri.contains('/employee/') ? 'active' : ''}"/>">
@@ -126,13 +136,6 @@
                             <ul>
                                 <li class="<c:out value="${requestUri.contains('/user/profile') ? 'active' : ''}"/>"><a href="/user/profile">个人信息</a></li>
                                 <li class="<c:out value="${requestUri.contains('/user/toChangePassword') ? 'active' : ''}"/>"><a href="/user/toChangePassword">修改密码</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="<c:out value="${requestUri.contains('/expense_claim/') ? 'active' : ''}"/>">
-                            <a href="javascript:void(0);" class="has-arrow"><i class="icon-home"></i><span>报销单管理</span></a>
-                            <ul>
-                                <li class="<c:out value="${requestUri.contains('/expense_claim/toAdd') ? 'active' : ''}"/>"><a href="/expense_claim/toAdd">创建报销单</a></li>
                             </ul>
                         </li>
 
