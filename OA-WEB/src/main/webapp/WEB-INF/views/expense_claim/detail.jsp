@@ -18,7 +18,7 @@
                 </nav>
             </div>
             <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                <a href="/expense_claim/toAdd" class="btn btn-sm btn-primary btn-round" title="">创建报销单</a>
+                <a href="/expense_claim/list" class="btn btn-sm btn-primary btn-round" title="">待处理报销单</a>
             </div>
         </div>
     </div> <!-- /block-header -->

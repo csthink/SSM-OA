@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page import="com.csthink.oa.global.ExpenseClaimConstant" %>
 <jsp:include page="/WEB-INF/views/layout/head.jsp" flush="true"/>
 
 <div id="main-content">
@@ -12,12 +13,12 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">报销单管理</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">个人报销单</li>
+                        <li class="breadcrumb-item active" aria-current="page">待处理报销单</li>
                     </ol>
                 </nav>
             </div>
             <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                <a href="/expense_claim/toAdd" class="btn btn-sm btn-primary btn-round" title="">新增报销单</a>
+                <a href="/expense_claim/toAdd" class="btn btn-sm btn-primary btn-round" title="">创建报销单</a>
             </div>
         </div>
     </div> <!-- /block-header -->
@@ -45,7 +46,19 @@
                                 <td><span>${ec.creatorEmployee.realName}</span></td>
                                 <td><span>${ec.totalAmount}</span></td>
                                 <td><span><spring:eval expression="ec.createTime"/></span></td>
-                                <td><a href="/expense_claim/detail?id=${ec.id}" class="btn btn-primary">详情</a></td>
+                                <td>
+                                    <c:if test="${ec.status.equals(ExpenseClaimConstant.EXPENSE_CLAIM_CREATED) || ec.status.equals(ExpenseClaimConstant.EXPENSE_CLAIM_BACK)}">
+                                        <a href="/expense_claim/to_edit?id=${ec.id}" class="btn btn-warning">修改</a>
+                                        <a href="/expense_claim/submit?id=${ec.id}" class="btn btn-info">提交</a>
+                                    </c:if>
+                                    <c:if test="${ec.status.equals(ExpenseClaimConstant.EXPENSE_CLAIM_SUBMIT) || ec.status.equals(ExpenseClaimConstant.EXPENSE_CLAIM_RECHECK)}">
+                                        <a href="/expense_claim/to_deal?id=${ec.id}" class="btn btn-success">审核</a>
+                                    </c:if>
+                                    <c:if test="${ec.status.equals(ExpenseClaimConstant.EXPENSE_CLAIM_APPROVED)}">
+                                        <a href="/expense_claim/to_deal?id=${ec.id}" class="btn btn-success">打款</a>
+                                    </c:if>
+                                    <a href="/expense_claim/detail?id=${ec.id}" class="btn btn-primary">详情</a>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>

@@ -108,9 +108,9 @@
                         <li class="<c:out value="${requestUri.contains('/expense_claim/') ? 'active' : ''}"/>">
                             <a href="javascript:void(0);" class="has-arrow"><i class="icon-home"></i><span>报销单管理</span></a>
                             <ul>
+                                <li class="<c:out value="${requestUri.contains('/expense_claim/list') ? 'active' : ''}"/>"><a href="/expense_claim/list">待处理报销单</a></li>
+                                <li class="<c:out value="${requestUri.contains('/expense_claim/self') ? 'active' : ''}"/>"><a href="/expense_claim/self">个人报销单</a></li>
                                 <li class="<c:out value="${requestUri.contains('/expense_claim/toAdd') ? 'active' : ''}"/>"><a href="/expense_claim/toAdd">创建报销单</a></li>
-                                <li class="<c:out value="${requestUri.contains('/expense_claim/creator') ? 'active' : ''}"/>"><a href="/expense_claim/creator">个人报销单</a></li>
-                                <li class="<c:out value="${requestUri.contains('/expense_claim/dealer') ? 'active' : ''}"/>"><a href="/expense_claim/dealer">待处理报销单</a></li>
                             </ul>
                         </li>
 

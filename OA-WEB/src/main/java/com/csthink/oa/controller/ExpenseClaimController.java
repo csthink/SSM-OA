@@ -45,7 +45,7 @@ public class ExpenseClaimController {
         Employee employee = (Employee) session.getAttribute("employee");
         info.getExpenseClaim().setCreator(employee.getId());
         expenseClaimService.save(info.getExpenseClaim(), info.getItems());
-        return "redirect:detail?id=" + info.getExpenseClaim().getId();
+        return "redirect:list";
     }
 
     /**
@@ -71,11 +71,11 @@ public class ExpenseClaimController {
      * @param map
      * @return
      */
-    @RequestMapping("/creator")
-    public String creator(HttpSession session, Map<String, Object> map) {
+    @RequestMapping("/self")
+    public String self(HttpSession session, Map<String, Object> map) {
         Employee employee = (Employee) session.getAttribute("employee");
         map.put("list", expenseClaimService.getExpenseClaimForCreator(employee.getId()));
-        return "expense_claim/creator";
+        return "expense_claim/self";
     }
 
     /**
@@ -85,11 +85,11 @@ public class ExpenseClaimController {
      * @param map
      * @return
      */
-    @RequestMapping("/dealer")
-    public String dealer(HttpSession session, Map<String, Object> map) {
+    @RequestMapping("/list")
+    public String list(HttpSession session, Map<String, Object> map) {
         Employee employee = (Employee) session.getAttribute("employee");
         map.put("list", expenseClaimService.getExpenseClaimForDealer(employee.getId()));
-        return "expense_claim/dealer";
+        return "expense_claim/list";
     }
 
     /**
@@ -122,7 +122,7 @@ public class ExpenseClaimController {
         Employee employee = (Employee) session.getAttribute("employee");
         info.getExpenseClaim().setCreator(employee.getId());
         expenseClaimService.update(info.getExpenseClaim(), info.getItems());
-        return "redirect:dealer";
+        return "redirect:list";
     }
 
     /**
@@ -134,7 +134,7 @@ public class ExpenseClaimController {
     @RequestMapping("/submit")
     public String submit(Integer id) {
         expenseClaimService.submit(id);
-        return "redirect:dealer";
+        return "redirect:list";
     }
 
     /**
@@ -154,7 +154,7 @@ public class ExpenseClaimController {
         expenseClaimRecord.setExpenseClaimId(id);
         map.put("record", expenseClaimRecord);
 
-        return "expense_claim/check";
+        return "expense_claim/deal";
     }
 
     /**
@@ -168,7 +168,7 @@ public class ExpenseClaimController {
         Employee employee = (Employee) session.getAttribute("employee");
         expenseClaimRecord.setDealEmp(employee.getId());
         expenseClaimService.deal(expenseClaimRecord);
-        return "redirect:dealer";
+        return "redirect:list";
     }
 
 }

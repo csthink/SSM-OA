@@ -149,7 +149,14 @@ public class ExpenseClaimServiceImpl implements ExpenseClaimService {
         // 1. 更新报销单记录
         ExpenseClaim expenseClaim = expenseClaimDao.selectById(cid); // 根据报销单编号，获取报销单记录
         Employee employee = employeeDao.selectById(expenseClaim.getCreator()); // 根据报销单记录，获取报销单关联的员工对象
-        Integer dealerId = employeeDao.selectByDeptIdAndPost(employee.getDeptId(), ExpenseClaimConstant.POST_FM).get(0).getId(); // 员工表中查询出该员工的部门经理
+        // 普通员工提交的报销单，下一个处理人是部门经理，其余员工(部门经理、财务、总经理)提交的报销单，下一个处理人都是总经理
+        Integer dealerId;
+        if (employee.getPost().equals(ExpenseClaimConstant.POST_STAFF)) {
+            dealerId = employeeDao.selectByDeptIdAndPost(employee.getDeptId(), ExpenseClaimConstant.POST_FM).get(0).getId(); // 员工表中查询出该员工的部门经理
+        } else {
+            dealerId = 10000;
+        }
+
         expenseClaim.setNextDealEmp(dealerId);
         expenseClaim.setStatus(ExpenseClaimConstant.EXPENSE_CLAIM_SUBMIT);
         expenseClaimDao.update(expenseClaim);
@@ -190,9 +197,6 @@ public class ExpenseClaimServiceImpl implements ExpenseClaimService {
                 } else {
                     // 需要总经理复审
                     expenseClaim.setStatus(ExpenseClaimConstant.EXPENSE_CLAIM_RECHECK); // 报销单状态:待复审
-                    System.out.println("employee: " + employee);
-                    System.out.println("deptId:" + employee.getDeptId());
-                    System.out.println(employeeDao.selectByDeptIdAndPost(employee.getDeptId(), ExpenseClaimConstant.POST_GM));
                     expenseClaim.setNextDealEmp(employeeDao.selectByDeptIdAndPost(null, ExpenseClaimConstant.POST_GM).get(0).getId()); // 下一个处理人是员工所在部门的总经理
 
                     expenseClaimRecord.setDealResult(ExpenseClaimConstant.EXPENSE_CLAIM_RECHECK); // 报销单记录结果:待复审
