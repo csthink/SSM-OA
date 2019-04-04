@@ -181,16 +181,19 @@ public class ExpenseClaimServiceImpl implements ExpenseClaimService {
             case ExpenseClaimConstant.DEAL_PASS: // 通过
                 // 判断报销单金额是否在部门经理允许处理的范围
                 if (expenseClaim.getTotalAmount().compareTo(BigDecimal.valueOf(ExpenseClaimConstant.AUDIT_LIMIT)) <= 0
-                        && employee.getPost().equals(ExpenseClaimConstant.POST_FM)) {
-                    // 部门经理可处理的范围
+                        || employee.getPost().equals(ExpenseClaimConstant.POST_GM)) {
+                    // 金额在部门经理可处理的范围或者处理人是总经理
                     expenseClaim.setStatus(ExpenseClaimConstant.EXPENSE_CLAIM_APPROVED); // 报销单状态:已审核
-                    expenseClaim.setNextDealEmp(employeeDao.selectByDeptIdAndPost(employee.getDeptId(), ExpenseClaimConstant.POST_CASHIER).get(0).getId()); // 下一个处理人是员工所在部门的财务
+                    expenseClaim.setNextDealEmp(employeeDao.selectByDeptIdAndPost(null, ExpenseClaimConstant.POST_CASHIER).get(0).getId()); // 下一个处理人是员工所在部门的财务
 
                     expenseClaimRecord.setDealResult(ExpenseClaimConstant.EXPENSE_CLAIM_APPROVED); // 报销单记录结果:已审核
                 } else {
                     // 需要总经理复审
                     expenseClaim.setStatus(ExpenseClaimConstant.EXPENSE_CLAIM_RECHECK); // 报销单状态:待复审
-                    expenseClaim.setNextDealEmp(employeeDao.selectByDeptIdAndPost(employee.getDeptId(), ExpenseClaimConstant.POST_GM).get(0).getId()); // 下一个处理人是员工所在部门的总经理
+                    System.out.println("employee: " + employee);
+                    System.out.println("deptId:" + employee.getDeptId());
+                    System.out.println(employeeDao.selectByDeptIdAndPost(employee.getDeptId(), ExpenseClaimConstant.POST_GM));
+                    expenseClaim.setNextDealEmp(employeeDao.selectByDeptIdAndPost(null, ExpenseClaimConstant.POST_GM).get(0).getId()); // 下一个处理人是员工所在部门的总经理
 
                     expenseClaimRecord.setDealResult(ExpenseClaimConstant.EXPENSE_CLAIM_RECHECK); // 报销单记录结果:待复审
                 }

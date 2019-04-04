@@ -52,10 +52,10 @@
                                         <a href="/expense_claim/submit?id=${ec.id}" class="btn btn-info">提交</a>
                                     </c:if>
                                     <c:if test="${ec.status.equals(ExpenseClaimConstant.EXPENSE_CLAIM_SUBMIT) || ec.status.equals(ExpenseClaimConstant.EXPENSE_CLAIM_RECHECK)}">
-                                        <a href="/expense_claim/to_check?id=${ec.id}" class="btn btn-success">审核</a>
+                                        <a href="/expense_claim/to_deal?id=${ec.id}" class="btn btn-success">审核</a>
                                     </c:if>
                                     <c:if test="${ec.status.equals(ExpenseClaimConstant.EXPENSE_CLAIM_APPROVED)}">
-                                        <a href="/expense_claim/to_check?id=${ec.id}" class="btn btn-success">打款</a>
+                                        <a href="/expense_claim/to_deal?id=${ec.id}" class="btn btn-success">打款</a>
                                     </c:if>
                                     <a href="/expense_claim/detail?id=${ec.id}" class="btn btn-primary">详情</a>
                                 </td>

@@ -52,5 +52,5 @@ public interface EmployeeDao {
      * @param post 职务
      * @return 员工集合
      */
-    List<Employee> selectByDeptIdAndPost(@Param("deptId") Integer deptId, @Param("post")String post);
+    List<Employee> selectByDeptIdAndPost(@Param("deptId") Integer deptId, @Param("post") String post);
 }
