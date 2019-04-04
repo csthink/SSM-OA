@@ -297,7 +297,8 @@ $(".empRemove").click(function () {
 });
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 登录页面开始 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
-let loginForm = document.getElementById("login-form");
+let loginForm;
+// loginForm = document.getElementById("login-form");
 if (null != loginForm) {
     // let form = loginForm;
     // 实例化验证器，添加验证规则
