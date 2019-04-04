@@ -1,6 +1,7 @@
 package com.csthink.oa.dao;
 
 import com.csthink.oa.entity.Employee;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -51,5 +52,5 @@ public interface EmployeeDao {
      * @param post 职务
      * @return 员工集合
      */
-    List<Employee> selectByDeptIdAndPost(Integer deptId, String post);
+    List<Employee> selectByDeptIdAndPost(@Param("deptId") Integer deptId, @Param("post")String post);
 }

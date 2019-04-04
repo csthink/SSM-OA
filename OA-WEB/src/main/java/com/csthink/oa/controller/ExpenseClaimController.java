@@ -117,4 +117,15 @@ public class ExpenseClaimController {
         return "redirect:dealer";
     }
 
+    /**
+     * 提交报销单
+     * @param id 报销单编号
+     * @return
+     */
+    @RequestMapping("/submit")
+    public String submit(Integer id) {
+        expenseClaimService.submit(id);
+        return "redirect:dealer";
+    }
+
 }
