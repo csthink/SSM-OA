@@ -85,7 +85,7 @@
     </delete>
 
     <update id="update" parameterType="ExpenseClaim">
-        UPDATE `employee`
+        UPDATE `expense_claim`
         <set>
             <if test="null != cause">cause=#{cause},</if>
             <if test="null != creator">creator=#{creator},</if>

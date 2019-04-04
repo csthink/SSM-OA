@@ -48,7 +48,7 @@
                                 <td><span><spring:eval expression="ec.createTime"/></span></td>
                                 <td>
                                     <c:if test="${ec.status.equals(ExpenseClaimConstant.EXPENSE_CLAIM_CREATED) || ec.status.equals(ExpenseClaimConstant.EXPENSE_CLAIM_BACK)}">
-                                        <a href="/expense_claim/to_update?id=${ec.id}" class="btn btn-warning">修改</a>
+                                        <a href="/expense_claim/to_edit?id=${ec.id}" class="btn btn-warning">修改</a>
                                         <a href="/expense_claim/submit?id=${ec.id}" class="btn btn-info">提交</a>
                                     </c:if>
                                     <c:if test="${ec.status.equals(ExpenseClaimConstant.EXPENSE_CLAIM_SUBMIT) || ec.status.equals(ExpenseClaimConstant.EXPENSE_CLAIM_RECHECK)}">

@@ -26,9 +26,9 @@ public class ExpenseClaimController {
     @RequestMapping("/toAdd")
     public String toAdd(Map<String, Object> map) {
         map.put("items", ExpenseClaimConstant.getExpenseType());
-        map.put("info", new ExpenseClaimInfo());
+        map.put("info", new ExpenseClaimInfo()); // info 为键传递到页面的modelAttribute
 
-        return "expense_claim/toAdd";
+        return "expense_claim/add";
     }
 
     /**
@@ -86,5 +86,35 @@ public class ExpenseClaimController {
         return "expense_claim/dealer";
     }
 
+    /**
+     * 修改报销单
+     * @param id 报销单编号
+     * @param map
+     * @return
+     */
+    @RequestMapping("/to_edit")
+    public String toEdit(Integer id, Map<String, Object> map) {
+        map.put("items", ExpenseClaimConstant.getExpenseType());
+        ExpenseClaimInfo expenseClaimInfo = new ExpenseClaimInfo();
+        expenseClaimInfo.setExpenseClaim(expenseClaimService.getExpenseClaim(id));
+        expenseClaimInfo.setItems(expenseClaimService.getItems(id));
+        map.put("info", expenseClaimInfo);
+
+        return "expense_claim/edit";
+    }
+
+    /**
+     * 处理修改报销单
+     * @param session
+     * @param info
+     * @return
+     */
+    @RequestMapping("/edit")
+    public String update(HttpSession session, ExpenseClaimInfo info) {
+        Employee employee = (Employee) session.getAttribute("employee");
+        info.getExpenseClaim().setCreator(employee.getId());
+        expenseClaimService.update(info.getExpenseClaim(), info.getItems());
+        return "redirect:dealer";
+    }
 
 }
