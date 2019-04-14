@@ -7,7 +7,7 @@
 * 删除员工
 
 ```$xslt
-系统预置的账号:
+系统预置的测试账号:
 
     10000 111
     
@@ -132,11 +132,6 @@ INSERT INTO `oa`.`department`(`id`, `dept_name`, `address`, `tel`, `create_time`
 INSERT INTO `oa`.`department`(`id`, `dept_name`, `address`, `tel`, `create_time`, `update_time`) VALUES (103, '技术部', '飞天大厦140室', '010-123123123', '2019-04-02 06:38:21', '2019-04-02 10:13:35');
 INSERT INTO `oa`.`department`(`id`, `dept_name`, `address`, `tel`, `create_time`, `update_time`) VALUES (104, '后勤部', '飞天大厦150室', '010-111222333', '2019-04-02 06:38:21', '2019-04-02 10:13:35');
 INSERT INTO `oa`.`department`(`id`, `dept_name`, `address`, `tel`, `create_time`, `update_time`) VALUES (105, '客服部', '飞天大厦160室', '010-222333444', '2019-04-02 06:38:21', '2019-04-02 10:13:35');
-
--- qiwang 111
--- caishen 111
--- lianyike 111
--- huahua 111
 
 INSERT INTO `oa`.`employee`(`id`, `username`, `password`, `real_name`, `dept_id`, `post`, `create_time`, `update_time`) 
 	VALUES (10000, 'qiwang', '29d73329e98e48c88a0d01177d2d2a6b', '七王爷', 100, '总经理', '2019-04-02 09:31:21', '2019-04-02 11:28:05');
